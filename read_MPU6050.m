@@ -1,3 +1,5 @@
+%Eski kod tek sensorle okumak icin yapildi
+
 function [ out ] = read_MPU6050( arduino )
 %UNTITLED4 Summary of this function goes here
 %   Detailed explanation goes here
@@ -31,7 +33,7 @@ for j=stop2+2:length(str)
     end
 end
 angle_y=str2double(str(stop2+2:stop3));
-%to find the 3° ','
+%to find the 3Â° ','
 
 angle_z=str2double(str(stop3+2:length(str)));
 %degistirdik
