@@ -1,6 +1,8 @@
+//To receiver code for Arduino in 2 sensor using
+
 #include <SoftwareSerial.h>
 
-
+//receiving part algorithms
 const byte numChars=32;
 char receivedChars[numChars];
 boolean newData=false;
@@ -10,6 +12,7 @@ boolean newData=false;
 
 #include <Wire.h>
 
+//For IMU registering addresses
 #define MPU6050_AUX_VDDIO          0x01   // R/W
 #define MPU6050_SMPLRT_DIV         0x19   // R/W
 #define MPU6050_CONFIG             0x1A   // R/W
@@ -732,12 +735,6 @@ void setup()
 
   
   Serial.begin(9600);
-  //  Serial.println("<Arduino is ready>");
-
-  /*
-  Serial.println(F("InvenSense MPU-6050"));
-  Serial.println(F("June 2012"));
-  */
   // Initialize the 'Wire' class for the I2C-bus.
   Wire.begin();
 
@@ -750,12 +747,7 @@ void setup()
   //
 
   error = MPU6050_read (MPU6050_WHO_AM_I, &c, 1);
-  /*
-  Serial.print(F("WHO_AM_I : "));
-  Serial.print(c,HEX);
-  Serial.print(F(", error = "));
-  Serial.println(error,DEC);
-  */
+
 
   // According to the datasheet, the 'sleep' bit
   // should read a '1'. But I read a '0'.
@@ -782,7 +774,7 @@ void setup()
 void loop()
 {
  
-//if(Serial.available()==0 && SerialHasBeenAvailable==true){
+//To receive data from second arduino
 recvWithStartEndMarkers();
 showNewData();
   int error;
@@ -909,7 +901,7 @@ showNewData();
 //  Serial.print(unfiltered_gyro_angle_z, 2);
  // Serial.print(F("#FIL:"));             //Filtered angle
 
-//A2 datalari
+//IMU data of Main Arduino
   delay(5);
   Serial.print(F("A2:"));              //Accelerometer angle
        //nano represents A1 receiver code
@@ -941,7 +933,7 @@ showNewData();
   // Delay so we don't swamp the serial port
  
 }
-
+//Taking data of Second Ardino
 void recvWithStartEndMarkers(){
   static boolean recvInProgress=false;
   static byte ndx=0;
@@ -1066,6 +1058,8 @@ int MPU6050_write_reg(int reg, uint8_t data)
 
   return (error);
 }
+
+//Printing data of second arduino
 void showNewData() {
     if (newData == true) {
        // Serial.print("This just in ... ");
