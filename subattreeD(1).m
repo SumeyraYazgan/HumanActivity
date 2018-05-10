@@ -1,3 +1,5 @@
+%Matlab asil code kismi
+
 %plot ekran ayrildi
 %txt dosyasi ekliyor
 
@@ -19,12 +21,16 @@ arduino=serial('COM9','BaudRate',BaudRate);
 %dev/tty.SOR-DevB
 %/dev/tty.usbmodem1421
 %/dev/tty.usbmodem1421
+
 %opening the communication with the object arduino
 fopen(arduino);
 %first reading to throw away
 str=fscanf(arduino);
 str=fscanf(arduino);
-%legge e mette le variabili lette al posto giusto
+
+
+%%
+%reading and setting files by using function
 str=twosensor_read_MPU6050(arduino);
 dt=str(1);
 angle_x=str(2);
@@ -55,21 +61,24 @@ count=0;
 
 tic; %to count the seconds
 
-
+%%
+%Real time cube drawing
 while(toc<simulation_duration) %stop after "simulation duration" seconds
+%Setting X,Y,Z values
     str=read_MPU6050(arduino);
     dt=str(1);
     angle_x=str(2)*pi/180;
     angle_y=str(3)*pi/180;
     angle_z=str(4)*pi/180;
     count=count+1;
+    
+    % Creating data matrix to store data later
    data(1,count)=(str(2));
    data(2,count)=(str(3));
    data(3,count)=(str(4));
     
-    
+    %To visualize cube
     dcm_filtered = angle2dcm( angle_z, angle_x, angle_y); %it creates the rotation matrix [angoli di eulero -> (z,y,x)]
-
     VR_filtered=dcm_filtered*V;
     
     XR_filtered=reshape(VR_filtered(1,:),4,6);
@@ -91,7 +100,8 @@ clear count dat delay max min plotGraph plotGraph1 plotGraph2 plotGrid...
     plotTitle s scrollWidth serialPort xLabel yLabel;
 
 disp('Session Terminated');
-
+%%
+%To save data
 prompt = 'Export Data? [Y/N]: ';
 str = input(prompt,'s');
 if str == 'Y' || strcmp(str, ' Y') || str == 'y' || strcmp(str, ' y')
