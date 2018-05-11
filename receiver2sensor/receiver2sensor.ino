@@ -734,7 +734,7 @@ void setup()
   uint8_t c;
 
   
-  Serial.begin(19200);
+  Serial.begin(9600);
   // Initialize the 'Wire' class for the I2C-bus.
   Wire.begin();
 
@@ -755,7 +755,12 @@ void setup()
   // is in sleep mode at power-up. Even if the
   // bit reads '0'.
   error = MPU6050_read (MPU6050_PWR_MGMT_2, &c, 1);
-
+  /*
+  Serial.print(F("PWR_MGMT_2 : "));
+  Serial.print(c,HEX);
+  Serial.print(F(", error = "));
+  Serial.println(error,DEC);
+  */
 
   // Clear the 'sleep' bit to start the sensor.
   MPU6050_write_reg (MPU6050_PWR_MGMT_1, 0);
@@ -768,6 +773,10 @@ void setup()
 
 void loop()
 {
+ 
+//To receive data from second arduino
+recvWithStartEndMarkers();
+showNewData();
   int error;
   double dT;
   accel_t_gyro_union accel_t_gyro;
@@ -891,16 +900,12 @@ void loop()
 //  Serial.print(F(","));
 //  Serial.print(unfiltered_gyro_angle_z, 2);
  // Serial.print(F("#FIL:"));             //Filtered angle
-//To receive data from second arduino
- 
-  recvWithStartEndMarkers();
-    delay(5);
-    
-  showNewData();
-//IMU data of Main Arduino
 
+//IMU data of Main Arduino
+  delay(5);
   Serial.print(F("A2:"));              //Accelerometer angle
        //nano represents A1 receiver code
+ 
   Serial.print(angle_x, 2);
   Serial.print(F(","));
   Serial.print(angle_y, 2);
@@ -1058,9 +1063,8 @@ int MPU6050_write_reg(int reg, uint8_t data)
 void showNewData() {
     if (newData == true) {
        // Serial.print("This just in ... ");
-        Serial.print(F("A1:"));   
         Serial.print(receivedChars);
-        Serial.print(F(";"));  
+        Serial.print(F(","));
         newData = false;
     }
 }
