@@ -734,7 +734,7 @@ void setup()
   uint8_t c;
 
   
-  Serial.begin(9600);
+  Serial.begin(19200);
   // Initialize the 'Wire' class for the I2C-bus.
   Wire.begin();
 
@@ -775,8 +775,7 @@ void loop()
 {
  
 //To receive data from second arduino
-recvWithStartEndMarkers();
-showNewData();
+
   int error;
   double dT;
   accel_t_gyro_union accel_t_gyro;
@@ -901,6 +900,10 @@ showNewData();
 //  Serial.print(unfiltered_gyro_angle_z, 2);
  // Serial.print(F("#FIL:"));             //Filtered angle
 
+
+
+recvWithStartEndMarkers();
+showNewData();
 //IMU data of Main Arduino
   delay(5);
   Serial.print(F("A2:"));              //Accelerometer angle
@@ -960,6 +963,16 @@ void recvWithStartEndMarkers(){
       
     }
   }
+}
+
+//Printing data of second arduino
+void showNewData() {
+    if (newData == true) {
+       // Serial.print("This just in ... ");
+        Serial.print(receivedChars);
+        Serial.print(F(","));
+        newData = false;
+    }
 }
 
 
@@ -1059,13 +1072,4 @@ int MPU6050_write_reg(int reg, uint8_t data)
   return (error);
 }
 
-//Printing data of second arduino
-void showNewData() {
-    if (newData == true) {
-       // Serial.print("This just in ... ");
-        Serial.print(receivedChars);
-        Serial.print(F(","));
-        newData = false;
-    }
-}
 

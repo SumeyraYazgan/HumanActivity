@@ -788,7 +788,7 @@ void setup()
 
  
   
-  Serial.begin(9600);
+  Serial.begin(19200);
   /*
   Serial.println(F("InvenSense MPU-6050"));
   Serial.println(F("June 2012"));
@@ -941,7 +941,7 @@ void loop()
   // Send the data to the serial port
   //Serial.print(F("DEL:"));              //Delta T
   //Serial.print(dt, DEC);
- Serial.print(F("<A1:"));              //Arduino UNO_sender
+
 //  Serial.print(accel_angle_x, 2);
 //  Serial.print(F(","));
 //  Serial.print(accel_angle_y, 2);
@@ -953,7 +953,9 @@ void loop()
 //  Serial.print(unfiltered_gyro_angle_y, 2);
 //  Serial.print(F(","));
 //  Serial.print(unfiltered_gyro_angle_z, 2);
- // Serial.print(F("#FIL:"));             //Filtered angle
+ // Serial.print(F("#FIL:")); 
+ //Filtered angle
+  Serial.print(F("<"));              //Arduino UNO_sender
   Serial.print(angle_x, 2);
   Serial.print(F(","));
   Serial.print(angle_y, 2);
