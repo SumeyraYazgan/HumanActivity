@@ -1,2 +1,2 @@
 # HumanActivity
-MATLAB,Arduino afiles added
+MATLAB and Arduino files
