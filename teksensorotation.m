@@ -1,7 +1,7 @@
 %plot ekran ayrildi
 %txt dosyasi ekliyor
 
-%denendi
+%deneme hakan
 %this script is able to read in the correct way the string that arrive from
 %arduino and to put the right variable in the right place
 
