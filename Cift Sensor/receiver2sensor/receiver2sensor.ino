@@ -1,6 +1,7 @@
 //To receiver code for Arduino in 2 sensor using
 
 #include <SoftwareSerial.h>
+SoftwareSerial mySerial(0, 1); 
 
 //receiving part algorithms
 const byte numChars=32;
@@ -734,7 +735,8 @@ void setup()
   uint8_t c;
 
   
-  Serial.begin(19200);
+  Serial.begin(115200);
+   
   // Initialize the 'Wire' class for the I2C-bus.
   Wire.begin();
 
@@ -903,9 +905,10 @@ void loop()
 
 
 recvWithStartEndMarkers();
+delay(2);
 showNewData();
 //IMU data of Main Arduino
-  delay(5);
+
   Serial.print(F("A2:"));              //Accelerometer angle
        //nano represents A1 receiver code
  
@@ -915,6 +918,7 @@ showNewData();
   Serial.print(F(","));
   Serial.print(angle_z, 2);
   Serial.println(F(""));
+  delay(2);
 
 //
 
@@ -937,43 +941,48 @@ showNewData();
  
 }
 //Taking data of Second Ardino
-void recvWithStartEndMarkers(){
-  static boolean recvInProgress=false;
-  static byte ndx=0;
-  char startMarker='<';
-  char endMarker='>';
-  char rc;
-  while (Serial.available()>0&&newData==false){
-    rc=Serial.read();
-    if(recvInProgress==true){
-      if(rc !=endMarker){
-        receivedChars[ndx]=rc;
-        ndx++;
-        if(ndx>=numChars){
-          ndx=numChars-1;
-        }
-      }else{
-         receivedChars[ndx] = '\0'; // terminate the string
+void recvWithStartEndMarkers() {
+    static boolean recvInProgress = false;
+    static byte ndx = 0;
+    char startMarker = '<';
+    char endMarker = '>';
+    char rc;
+ 
+ // if (Serial.available() > 0) {
+    while (Serial.available() > 0 && newData == false) {
+        rc = Serial.read();
+
+        if (recvInProgress == true) {
+            if (rc != endMarker) {
+                receivedChars[ndx] = rc;
+                ndx++;
+                if (ndx >= numChars) {
+                    ndx = numChars - 1;
+                }
+            }
+            else {
+                receivedChars[ndx] = '\0'; // terminate the string
                 recvInProgress = false;
                 ndx = 0;
                 newData = true;
-      }
-    }else if(rc == startMarker){
-      recvInProgress = true;
-      
+            }
+        }
+
+        else if (rc == startMarker) {
+            recvInProgress = true;
+        }
     }
-  }
 }
 
-//Printing data of second arduino
 void showNewData() {
     if (newData == true) {
-       // Serial.print("This just in ... ");
+      
         Serial.print(receivedChars);
-        Serial.print(F(","));
+        Serial.print(";");
         newData = false;
     }
 }
+
 
 
 // --------------------------------------------------------

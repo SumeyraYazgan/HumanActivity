@@ -14,7 +14,7 @@ stop1=NaN;
 %To Find first A1 part to group other files
 for j=1:length(str)%to find the end of the first number sent
     
-    if str(j)=='A' && (str(j+1)=='1')
+    if str(j)=='A' && str(j+1)=='1'
         stop1=j;  %First stop at the beginning of A     
         
        
@@ -44,7 +44,7 @@ angle_y1=str2double(str(stop2+2:stop3));        %Setting Y1 value
 %to find the 3° ','
 stop4=NaN; %to find the first ','
 for j=stop3+2:length(str)
-    if str(j)==','
+    if str(j)==';'
         stop4=j-1;                        %Fourth stop point
         break;
     end
@@ -55,28 +55,42 @@ angle_z1=str2double(str(stop3+2:stop4));        %Setting Z1 value
 % Taking data after 'A2:' command
 
 stop5=NaN; %to find the first ','
-for j=stop4+5:length(str)
-    if str(j)==','
-        stop5=j-1;                                %Fifth stop point
+
+for j=stop4+2:length(str)
+    
+    if str(j)=='A' && str(j+1)=='2'
+        stop5=j;  %First stop at the beginning of A     
+        
+       
+     
         break;
     end
 end
-angle_x2=str2double(str(stop4+5:stop5));               %Setting X2 value
-%to find the 3° ','
+
 
 stop6=NaN; %to find the first ','
-for j=stop5+2:length(str)
+for j=stop5+1:length(str)
     if str(j)==','
-        stop6=j-1;                        %Sixth stop point
+        stop6=j-1;                                %Fifth stop point
+        break;
+    end
+end
+angle_x2=str2double(str(stop5+3:stop6));               %Setting X2 value
+%to find the 3° ','
+
+stop7=NaN; %to find the first ','
+for j=stop6+2:length(str)
+    if str(j)==','
+        stop7=j-1;                        %Sixth stop point
         break;
     end
 end
 
-angle_y2=str2double(str(stop5+2:stop6));                        %Setting Y2 value
+angle_y2=str2double(str(stop6+2:stop7));                        %Setting Y2 value
 
 
 
-angle_z2=str2double(str(stop6+2:length(str)));                    %Setting Z2 value
+angle_z2=str2double(str(stop7+2:length(str)));                    %Setting Z2 value
 %degistirdik
 
 

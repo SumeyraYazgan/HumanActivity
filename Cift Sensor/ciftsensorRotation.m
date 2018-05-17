@@ -11,7 +11,7 @@ close all;
 delete(instrfind);
 
 %important setting variables
-BaudRate=9600;%with thisvariable yu can set the baudrate of arduino
+BaudRate=115200;%with thisvariable yu can set the baudrate of arduino
 buffSize=100;
 simulation_duration=25; %time in seconds
 
@@ -25,17 +25,19 @@ arduino=serial('COM9','BaudRate',BaudRate);
 %opening the communication with the object arduino
 fopen(arduino);
 %first reading to throw away
+%str=fscanf(arduino);
 str=fscanf(arduino);
 str=fscanf(arduino);
-
 
 %%
 %reading and setting files by using function
 str=twosensor_read_MPU6050(arduino);
-dt=str(1);
-angle_x=str(2);
-angle_y=str(3);
-angle_z=str(4);
+angle_x_a1=str(1);
+angle_y_a1=str(2);
+angle_z_a1=str(3);
+angle_x_a2=str(4);
+angle_y_a2=str(5);
+angle_z_a2=str(6);
 
 
 %%%%% let's star the rotation cube%%%%%%%%%%
@@ -56,7 +58,7 @@ X = L*(X-0.5) + xc;
 Y = L/1.5*(Y-0.5) + yc;
 Z = L/3*(Z-0.5) + zc;
 V=[reshape(X,1,24); reshape(Y,1,24); reshape(Z,1,24)]; %rashape takesthe element of X and it fix them in only one coulomn (in this case)
-data=zeros(3,1);
+data=zeros(1,6);
 count=0;
 
 tic; %to count the seconds
@@ -65,20 +67,22 @@ tic; %to count the seconds
 %Real time cube drawing
 while(toc<simulation_duration) %stop after "simulation duration" seconds
 %Setting X,Y,Z values
-    str=read_MPU6050(arduino);
-    dt=str(1);
-    angle_x=str(2)*pi/180;
-    angle_y=str(3)*pi/180;
-    angle_z=str(4)*pi/180;
+    str=twosensor_read_MPU6050(arduino);
+    angle_x_a1=str(1)*pi/180;
+    angle_y_a1=str(2)*pi/180;
+    angle_z_a1=str(3)*pi/180;
+    angle_x_a2=str(4)*pi/180;
+    angle_y_a2=str(5)*pi/180;
+    angle_z_a2=str(6)*pi/180;
+
+    
     count=count+1;
     
     % Creating data matrix to store data later
-   data(1,count)=(str(2));
-   data(2,count)=(str(3));
-   data(3,count)=(str(4));
-    
+   data(count,:)=[str(1) str(2) str(3) str(4) str(5) str(6)];
+   
     %To visualize cube
-    dcm_filtered = angle2dcm( angle_z, angle_x, angle_y); %it creates the rotation matrix [angoli di eulero -> (z,y,x)]
+    dcm_filtered = angle2dcm( angle_z_a1, angle_x_a1, angle_y_a1); %it creates the rotation matrix [angoli di eulero -> (z,y,x)]
     VR_filtered=dcm_filtered*V;
     
     XR_filtered=reshape(VR_filtered(1,:),4,6);
@@ -87,7 +91,7 @@ while(toc<simulation_duration) %stop after "simulation duration" seconds
 
 
 %%
-   PlotShape(XR_filtered,YR_filtered,ZR_filtered,C,alpha)
+   %PlotShape(XR_filtered,YR_filtered,ZR_filtered,C,alpha)
     
     
 
@@ -106,12 +110,12 @@ prompt = 'Export Data? [Y/N]: ';
 str = input(prompt,'s');
 if str == 'Y' || strcmp(str, ' Y') || str == 'y' || strcmp(str, ' y')
     export data
-    csvwrite('h0_0.txt',transpose(data));
-    type h0_0.txt;
+    csvwrite('deneme.txt',data);
+    type deneme.txt;
     delete(instrfind);
     
-    data = transpose(data); 
-    save ('h0_0','data');
+
+    save ('deneme','data');
 else
 end
 
