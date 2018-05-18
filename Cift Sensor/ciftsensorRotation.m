@@ -13,7 +13,7 @@ delete(instrfind);
 %important setting variables
 BaudRate=115200;%with thisvariable yu can set the baudrate of arduino
 buffSize=100;
-simulation_duration=25; %time in seconds
+simulation_duration=90; %time in seconds
 
 
 %creating an object arduino

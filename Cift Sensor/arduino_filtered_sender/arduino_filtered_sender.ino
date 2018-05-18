@@ -788,7 +788,7 @@ void setup()
 
  
   
-  Serial.begin(19200);
+  Serial.begin(115200);
   /*
   Serial.println(F("InvenSense MPU-6050"));
   Serial.println(F("June 2012"));
@@ -967,7 +967,7 @@ void loop()
   //mySerial.print(F("DEL:"));              //Delta T
   //mySerial.print(dt, DEC);
   
- // mySerial.print(F("A1:")); 
+ // mySerial.print(F("A:")); 
   //mySerial.print(angle_x, 2);
   //mySerial.print(F(","));
   //mySerial.print(angle_y, 2);

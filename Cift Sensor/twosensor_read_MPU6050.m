@@ -14,7 +14,7 @@ stop1=NaN;
 %To Find first A1 part to group other files
 for j=1:length(str)%to find the end of the first number sent
     
-    if str(j)=='A' && str(j+1)=='1'
+    if str(j)=='A'
         stop1=j;  %First stop at the beginning of A     
         
        
@@ -31,7 +31,7 @@ for j=stop1+1:length(str)
         break;
     end
 end
-angle_x1=str2double(str(stop1+3:stop2));     %between A and stop2 is X1 value
+angle_x1=str2double(str(stop1+2:stop2));     %between A and stop2 is X1 value
 %to find the second ','
 stop3=NaN; %to find the first ','
 for j=stop2+2:length(str)
@@ -58,7 +58,7 @@ stop5=NaN; %to find the first ','
 
 for j=stop4+2:length(str)
     
-    if str(j)=='A' && str(j+1)=='2'
+    if str(j)=='B' 
         stop5=j;  %First stop at the beginning of A     
         
        
@@ -75,7 +75,7 @@ for j=stop5+1:length(str)
         break;
     end
 end
-angle_x2=str2double(str(stop5+3:stop6));               %Setting X2 value
+angle_x2=str2double(str(stop5+2:stop6));               %Setting X2 value
 %to find the 3° ','
 
 stop7=NaN; %to find the first ','

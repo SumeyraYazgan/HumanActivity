@@ -1,4 +1,4 @@
-//To receiver code for Arduino in 2 sensor using
+//Receiver code for Arduino in 2 sensor using
 
 #include <SoftwareSerial.h>
 SoftwareSerial mySerial(0, 1); 
@@ -909,7 +909,7 @@ delay(2);
 showNewData();
 //IMU data of Main Arduino
 
-  Serial.print(F("A2:"));              //Accelerometer angle
+  Serial.print(F("B:"));              //Accelerometer angle
        //nano represents A1 receiver code
  
   Serial.print(angle_x, 2);
