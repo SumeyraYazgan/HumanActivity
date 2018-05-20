@@ -13,7 +13,7 @@ delete(instrfind);
 %important setting variables
 BaudRate=115200;%with thisvariable yu can set the baudrate of arduino
 buffSize=100;
-simulation_duration=90; %time in seconds
+simulation_duration=20; %time in seconds
 
 
 %creating an object arduino
@@ -26,7 +26,6 @@ arduino=serial('COM9','BaudRate',BaudRate);
 fopen(arduino);
 %first reading to throw away
 %str=fscanf(arduino);
-str=fscanf(arduino);
 str=fscanf(arduino);
 
 %%
@@ -68,6 +67,9 @@ tic; %to count the seconds
 while(toc<simulation_duration) %stop after "simulation duration" seconds
 %Setting X,Y,Z values
     str=twosensor_read_MPU6050(arduino);
+     if isequal(str(1), str(2), str(3), str(4), str(5), str(6))
+   
+     else
     angle_x_a1=str(1)*pi/180;
     angle_y_a1=str(2)*pi/180;
     angle_z_a1=str(3)*pi/180;
@@ -79,21 +81,22 @@ while(toc<simulation_duration) %stop after "simulation duration" seconds
     count=count+1;
     
     % Creating data matrix to store data later
-   data(count,:)=[str(1) str(2) str(3) str(4) str(5) str(6)];
    
+   data(count,:)=[str(1) str(2) str(3) str(4) str(5) str(6)];
+     end
+
     %To visualize cube
     dcm_filtered = angle2dcm( angle_z_a1, angle_x_a1, angle_y_a1); %it creates the rotation matrix [angoli di eulero -> (z,y,x)]
     VR_filtered=dcm_filtered*V;
-    
     XR_filtered=reshape(VR_filtered(1,:),4,6);
     YR_filtered=reshape(VR_filtered(2,:),4,6);
     ZR_filtered=reshape(VR_filtered(3,:),4,6);
 
 
 %%
-   %PlotShape(XR_filtered,YR_filtered,ZR_filtered,C,alpha)
+   PlotShape(XR_filtered,YR_filtered,ZR_filtered,C,alpha)
     
-    
+     
 
 end
     

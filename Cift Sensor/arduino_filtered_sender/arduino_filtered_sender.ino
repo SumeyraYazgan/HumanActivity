@@ -2,7 +2,7 @@
 
 #include <SoftwareSerial.h>
 
-//SoftwareSerial mySerial(0,1); // RX, TX
+SoftwareSerial mySerial(0,1); // RX, TX
 // MPU-6050 Accelerometer + Gyro
 // -----------------------------
 //
@@ -955,7 +955,7 @@ void loop()
 //  Serial.print(unfiltered_gyro_angle_z, 2);
  // Serial.print(F("#FIL:")); 
  //Filtered angle
-  Serial.print(F("<"));              //Arduino UNO_sender
+  Serial.print(F("<A:"));              //Arduino UNO_sender
   Serial.print(angle_x, 2);
   Serial.print(F(","));
   Serial.print(angle_y, 2);
@@ -1010,7 +1010,7 @@ int MPU6050_read(int start, uint8_t *buffer, int size)
   // Third parameter is true: relase I2C-bus after data is read.
   Wire.requestFrom(MPU6050_I2C_ADDRESS, size, true);
   i = 0;
-  while(Wire.available() && i<size)
+  while(  i<size)
   {
     buffer[i++]=Wire.read();
   }

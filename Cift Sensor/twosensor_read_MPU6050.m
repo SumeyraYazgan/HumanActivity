@@ -8,16 +8,22 @@ function [ out ] = twosensor_read_MPU6050( arduino )
 str=fscanf(arduino);    %to read serial port
 % str1=str(1:6);
 stop1=NaN;
+angle_x1=0;
+angle_y1=0;
+angle_z1=0;
+angle_x2=0;
+angle_y2=0;
+angle_z2=0;
 
+a=size(str);
 %%
 %Taken format of Arduino A1: X1, Y1, Z1 A2: X2,Y2,Z2
 %To Find first A1 part to group other files
+if a(2)>34&&a(2)<50
 for j=1:length(str)%to find the end of the first number sent
     
     if str(j)=='A'
         stop1=j;  %First stop at the beginning of A     
-        
-       
      
         break;
     end
@@ -25,6 +31,7 @@ end
 
 %dt=str2double(str(5:stop1));
 stop2=NaN; %to find the first ','
+
 for j=stop1+1:length(str)
     if str(j)==','
         stop2=j-1;      %Second stop point is first ','
@@ -94,7 +101,7 @@ angle_z2=str2double(str(stop7+2:length(str)));                    %Setting Z2 va
 %degistirdik
 
 
-
+end
 
 out=[angle_x1,angle_y1,angle_z1,angle_x2,angle_y2,angle_z2];
 
