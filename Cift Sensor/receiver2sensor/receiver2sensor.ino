@@ -735,7 +735,7 @@ void setup()
   uint8_t c;
 
   
-  Serial.begin(115200);
+  Serial.begin(19200);
    
   // Initialize the 'Wire' class for the I2C-bus.
   Wire.begin();
@@ -905,7 +905,7 @@ void loop()
 
 
 recvWithStartEndMarkers();
-delay(2);
+  delay(23);
 showNewData();
 //IMU data of Main Arduino
 
@@ -918,7 +918,7 @@ showNewData();
   Serial.print(F(","));
   Serial.print(angle_z, 2);
   Serial.println(F(""));
-  delay(2);
+
 
 //
 

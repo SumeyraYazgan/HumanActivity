@@ -19,7 +19,7 @@ a=size(str);
 %%
 %Taken format of Arduino A1: X1, Y1, Z1 A2: X2,Y2,Z2
 %To Find first A1 part to group other files
-if a(2)>34&&a(2)<50
+if a(2)>39&&a(2)<50
 for j=1:length(str)%to find the end of the first number sent
     
     if str(j)=='A'

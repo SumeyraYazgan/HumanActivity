@@ -788,7 +788,7 @@ void setup()
 
  
   
-  Serial.begin(115200);
+  Serial.begin(19200);
   /*
   Serial.println(F("InvenSense MPU-6050"));
   Serial.println(F("June 2012"));
@@ -976,7 +976,7 @@ void loop()
   //mySerial.println(F(""));
   
   // Delay so we don't swamp the serial port
-  delay(5);
+  delay(25);
   
 }
 
