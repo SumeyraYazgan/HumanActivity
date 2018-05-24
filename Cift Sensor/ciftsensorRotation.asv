@@ -27,9 +27,6 @@ fopen(arduino);
 %first reading to throw away
 str=fscanf(arduino);
 str=fscanf(arduino);
-str=fscanf(arduino);
-str=fscanf(arduino);
-str=fscanf(arduino);
 
 %%
 %reading and setting files by using function
@@ -106,8 +103,8 @@ while(toc<simulation_duration) %stop after "simulation duration" seconds
 
 %%
 
- %  PlotShape(XR_filteredA,YR_filteredA,ZR_filteredA,C,alpha)
-   PlotShape(XR_filteredB,YR_filteredB,ZR_filteredB,C,alpha)
+   PlotShape(XR_filteredA,YR_filteredA,ZR_filteredA,C,alpha)
+ %  PlotShape(XR_filteredB,YR_filteredB,ZR_filteredB,C,alpha)
   
   
 

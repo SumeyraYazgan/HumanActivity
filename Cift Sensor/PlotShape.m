@@ -2,9 +2,9 @@
 function [  ] = PlotShape(xval,yval,zval,C,alpha )
 
 
- figure(1)
+figure(1)
     fill3(xval,yval,zval,C,'FaceAlpha',alpha);
-    xlabel('x');
+    xlabel('x')
     ylabel('y');
     zlabel('z');
     xlim([-2 2]);

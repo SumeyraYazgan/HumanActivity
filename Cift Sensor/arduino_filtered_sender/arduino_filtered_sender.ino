@@ -6,6 +6,7 @@ SoftwareSerial mySerial(0,1); // RX, TX
 // MPU-6050 Accelerometer + Gyro
 // -----------------------------
 //
+
 // By arduino.cc user "Krodal".
 // June 2012
 // Open Source / Public Domain
@@ -788,7 +789,7 @@ void setup()
 
  
   
-  Serial.begin(19200);
+  Serial.begin(38400);
   /*
   Serial.println(F("InvenSense MPU-6050"));
   Serial.println(F("June 2012"));
