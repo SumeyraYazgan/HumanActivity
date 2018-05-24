@@ -13,7 +13,7 @@ delete(instrfind);
 %important setting variables
 BaudRate=19200;%with thisvariable yu can set the baudrate of arduino
 buffSize=100;
-simulation_duration=25; %time in seconds
+simulation_duration=45; %time in seconds
 
 
 %creating an object arduino
@@ -86,7 +86,7 @@ while(toc<simulation_duration) %stop after "simulation duration" seconds
     
     % Creating data matrix to store data later
    
-   data(count,:)=[str(1) str(2) str(3) str(4) str(5) str(6)];
+ data(count,:)=[str(1) str(2) str(3) str(4) str(5) str(6)];
      end
 
     %To visualize cube
@@ -106,7 +106,7 @@ while(toc<simulation_duration) %stop after "simulation duration" seconds
 
 %%
 
- %  PlotShape(XR_filteredA,YR_filteredA,ZR_filteredA,C,alpha)
+ % PlotShape(XR_filteredA,YR_filteredA,ZR_filteredA,C,alpha)
    PlotShape(XR_filteredB,YR_filteredB,ZR_filteredB,C,alpha)
   
   
@@ -129,12 +129,12 @@ prompt = 'Export Data? [Y/N]: ';
 str = input(prompt,'s');
 if str == 'Y' || strcmp(str, ' Y') || str == 'y' || strcmp(str, ' y')
    % export data
-    csvwrite('h1_3.txt',data);
-    type h1_3.txt;
+    csvwrite('t3_3.txt',data);
+    type t3_3.txt;
     delete(instrfind);
     
 
-    save ('h1_3','data');
+    save ('t3_3','data');
 else
 end
 
