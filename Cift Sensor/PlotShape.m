@@ -1,8 +1,7 @@
 %Drawing cube for sensor values
-function [  ] = PlotShape(xval,yval,zval,C,alpha )
+function [] = PlotShape(xval,yval,zval,C,alpha)
 
-
- figure(1)
+figure(1)
     fill3(xval,yval,zval,C,'FaceAlpha',alpha);
     xlabel('x');
     ylabel('y');
@@ -13,4 +12,3 @@ function [  ] = PlotShape(xval,yval,zval,C,alpha )
     box on;
     drawnow
 end
-
