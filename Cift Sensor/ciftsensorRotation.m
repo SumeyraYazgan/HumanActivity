@@ -13,7 +13,7 @@ delete(instrfind);
 %important setting variables
 BaudRate=19200;%with thisvariable yu can set the baudrate of arduino
 buffSize=100;
-simulation_duration=45; %time in seconds
+simulation_duration=20; %time in seconds
 
 
 %creating an object arduino
@@ -30,6 +30,8 @@ str=fscanf(arduino);
 str=fscanf(arduino);
 str=fscanf(arduino);
 str=fscanf(arduino);
+str=fscanf(arduino);
+str=fscanf(arduino)
 
 %%
 %reading and setting files by using function
@@ -129,12 +131,12 @@ prompt = 'Export Data? [Y/N]: ';
 str = input(prompt,'s');
 if str == 'Y' || strcmp(str, ' Y') || str == 'y' || strcmp(str, ' y')
    % export data
-    csvwrite('t3_3.txt',data);
-    type t3_3.txt;
+    csvwrite('h5_4.txt',data);
+    type h5_4.txt;
     delete(instrfind);
     
 
-    save ('t3_3','data');
+    save ('h5_4','data');
 else
 end
 

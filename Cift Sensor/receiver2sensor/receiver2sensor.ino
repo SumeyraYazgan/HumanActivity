@@ -905,7 +905,7 @@ void loop()
 
 
 recvWithStartEndMarkers();
-  delay(23);
+  delay(38);
 showNewData();
 //IMU data of Main Arduino
 
