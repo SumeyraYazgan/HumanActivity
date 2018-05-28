@@ -62,7 +62,7 @@ X = L*(X-0.5) + xc;
 Y = L/1.5*(Y-0.5) + yc;
 Z = L/3*(Z-0.5) + zc;
 V=[reshape(X,1,24); reshape(Y,1,24); reshape(Z,1,24)]; %rashape takesthe element of X and it fix them in only one coulomn (in this case)
-data=zeros(1,6);
+h5_10=zeros(1,6);
 count=0;
 
 tic; %to count the seconds
@@ -74,7 +74,7 @@ while(toc<simulation_duration) %stop after "simulation duration" seconds
 %Setting X,Y,Z values
     str=twosensor_read_MPU6050(arduino);
      if isequal(str(1), str(2), str(3), str(4), str(5), str(6))
-   count=count;
+   
      else
     angle_x_A=str(1)*pi/180;
     angle_y_A=str(2)*pi/180;
@@ -82,15 +82,15 @@ while(toc<simulation_duration) %stop after "simulation duration" seconds
     angle_x_B=str(4)*pi/180;
     angle_y_B=str(5)*pi/180;
     angle_z_B=str(6)*pi/180;
-
-    
     count=count+1;
+    h5_10(count,:)=[angle_x_A angle_y_A angle_z_A angle_x_B angle_y_B angle_z_B];
+  
    
  
      end
 
     %To visualize cube
-     dcm_filteredB = angle2dcm( angle_z_B, angle_x_B, angle_y_B);
+    dcm_filteredB = angle2dcm( angle_z_B, angle_x_B, angle_y_B);
     dcm_filteredA = angle2dcm( angle_z_A, angle_x_A, angle_y_A);
    %it creates the rotation matrix [angoli di eulero -> (z,y,x)]
     VR_filteredA=dcm_filteredA*V;
@@ -103,7 +103,7 @@ while(toc<simulation_duration) %stop after "simulation duration" seconds
     XR_filteredB=reshape(VR_filteredB(1,:),4,6);
     YR_filteredB=reshape(VR_filteredB(2,:),4,6);
     ZR_filteredB=reshape(VR_filteredB(3,:),4,6);
-    data(count,:)=[angle_x_A angle_y_A angle_z_A angle_x_B angle_y_B angle_z_B];
+   
 %%
 
  % PlotShape(XR_filteredA,YR_filteredA,ZR_filteredA,C,alpha)
@@ -129,12 +129,12 @@ prompt = 'Export Data? [Y/N]:';
 str = input(prompt,'s');
 if str == 'Y' || strcmp(str, ' Y') || str == 'y' || strcmp(str, ' y')
    % export data
-    csvwrite('h5_8.txt',data);
-    type h5_8.txt;
+    csvwrite('h5_10.txt',h5_10);
+    type h5_10.txt;
     delete(instrfind);
     
 
-    save ('h5_8','data');
+    save ('h5_10','h5_10');
 else
 end
 
