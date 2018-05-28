@@ -74,7 +74,7 @@ while(toc<simulation_duration) %stop after "simulation duration" seconds
 %Setting X,Y,Z values
     str=twosensor_read_MPU6050(arduino);
      if isequal(str(1), str(2), str(3), str(4), str(5), str(6))
-   
+   count=count;
      else
     angle_x_A=str(1)*pi/180;
     angle_y_A=str(2)*pi/180;
@@ -85,10 +85,8 @@ while(toc<simulation_duration) %stop after "simulation duration" seconds
 
     
     count=count+1;
-    
-    % Creating data matrix to store data later
    
- data(count,:)=[str(1) str(2) str(3) str(4) str(5) str(6)];
+ 
      end
 
     %To visualize cube
@@ -105,7 +103,7 @@ while(toc<simulation_duration) %stop after "simulation duration" seconds
     XR_filteredB=reshape(VR_filteredB(1,:),4,6);
     YR_filteredB=reshape(VR_filteredB(2,:),4,6);
     ZR_filteredB=reshape(VR_filteredB(3,:),4,6);
-
+    data(count,:)=[angle_x_A angle_y_A angle_z_A angle_x_B angle_y_B angle_z_B];
 %%
 
  % PlotShape(XR_filteredA,YR_filteredA,ZR_filteredA,C,alpha)
@@ -127,16 +125,16 @@ clear count dat delay max min plotGraph plotGraph1 plotGraph2 plotGrid...
 disp('Session Terminated');
 %%
 %To save data
-prompt = 'Export Data? [Y/N]: ';
+prompt = 'Export Data? [Y/N]:';
 str = input(prompt,'s');
 if str == 'Y' || strcmp(str, ' Y') || str == 'y' || strcmp(str, ' y')
    % export data
-    csvwrite('h5_4.txt',data);
-    type h5_4.txt;
+    csvwrite('h5_8.txt',data);
+    type h5_8.txt;
     delete(instrfind);
     
 
-    save ('h5_4','data');
+    save ('h5_8','data');
 else
 end
 
