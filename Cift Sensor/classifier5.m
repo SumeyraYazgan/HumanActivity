@@ -1,10 +1,9 @@
 %This function classifies the test data. 
 %Plots graph of test data and in the below shows in which class the objec
 %is blong with some different colored symbols. 
-function[] = classifier (mov2, mov3, mov4, mov5,mov6, testData)
+function[] = classifier5 (mov2, mov3, mov4, mov5,mov6, testData)
 
 %Gives numbers to each activity. these numbers will be used for label
-%indexMov1 = 0; 
 indexMov2 = 1; 
 indexMov3 = 2; 
 indexMov4 = 3; 
@@ -12,7 +11,6 @@ indexMov5 = 4;
 indexMov6 = 5;
 
 %Creates labels for each activity
-%Movement1 = indexMov1 * ones(length(mov1),1);
 Movement2 = indexMov2 * ones(length(mov2),1);
 Movement3 = indexMov3 * ones(length(mov3),1);
 Movement4 = indexMov4 * ones(length(mov4),1);
@@ -63,7 +61,7 @@ d5 = [];
 
 for i = 1:1:length(testData) 
  
-    switch x(i);
+     switch x(i);
       case 1 
       subplot(2,1,2)
       d1 = [d1; i (x(i)-1)];  
@@ -126,7 +124,7 @@ try
    plot(d5(:,1),d5(:,2), 'm+');
 catch
 end
-L = [{'adduction', 'flexion', 'extension', 'lateral rotation', 'circumduction'}];
+L = [{'adduction', 'flexion','extension', 'lateral rotation', 'circumduction'}];
 
 
 

@@ -36,12 +36,12 @@ str=fscanf(arduino)
 %%
 %reading and setting files by using function
 str=twosensor_read_MPU6050(arduino);
-angle_x_a1=str(1);
-angle_y_a1=str(2);
-angle_z_a1=str(3);
-angle_x_a2=str(4);
-angle_y_a2=str(5);
-angle_z_a2=str(6);
+angle_x_A=str(1)*pi/180;
+angle_y_A=str(2)*pi/180;
+angle_z_A=str(3)*pi/180;
+angle_x_B=str(4)*pi/180;
+angle_y_B=str(5)*pi/180;
+angle_z_B=str(6)*pi/180;
 
 
 %%%%% let's star the rotation cube%%%%%%%%%%
@@ -62,7 +62,7 @@ X = L*(X-0.5) + xc;
 Y = L/1.5*(Y-0.5) + yc;
 Z = L/3*(Z-0.5) + zc;
 V=[reshape(X,1,24); reshape(Y,1,24); reshape(Z,1,24)]; %rashape takesthe element of X and it fix them in only one coulomn (in this case)
-h5_10=zeros(1,6);
+h5_17=zeros(1,6);
 count=0;
 
 tic; %to count the seconds
@@ -83,7 +83,7 @@ while(toc<simulation_duration) %stop after "simulation duration" seconds
     angle_y_B=str(5)*pi/180;
     angle_z_B=str(6)*pi/180;
     count=count+1;
-    h5_10(count,:)=[angle_x_A angle_y_A angle_z_A angle_x_B angle_y_B angle_z_B];
+    h5_17(count,:)=[angle_x_A angle_y_A angle_z_A angle_x_B angle_y_B angle_z_B];
   
    
  
@@ -106,8 +106,16 @@ while(toc<simulation_duration) %stop after "simulation duration" seconds
    
 %%
 
- % PlotShape(XR_filteredA,YR_filteredA,ZR_filteredA,C,alpha)
-   PlotShape(XR_filteredB,YR_filteredB,ZR_filteredB,C,alpha)
+ figure(1)
+    subplot(2,1,1);
+
+  PlotShape(XR_filteredA,YR_filteredA,ZR_filteredA,C,alpha,'Slave Module')
+    
+ % hold on
+    subplot(2,1,2);
+   
+   PlotShape(XR_filteredB,YR_filteredB,ZR_filteredB,C,alpha,'Master Module')
+ 
   
   
 
@@ -129,12 +137,12 @@ prompt = 'Export Data? [Y/N]:';
 str = input(prompt,'s');
 if str == 'Y' || strcmp(str, ' Y') || str == 'y' || strcmp(str, ' y')
    % export data
-    csvwrite('h5_10.txt',h5_10);
-    type h5_10.txt;
+    csvwrite('h5_17.txt',h5_17);
+    type h5_17.txt;
     delete(instrfind);
     
 
-    save ('h5_10','h5_10');
+    save ('h5_17','h5_17');
 else
 end
 
